@@ -188,19 +188,20 @@ MOBILE_NOTIFICATIONS_SENDER_ID := 424242424242
 ## The following part is only used for PGOcaml (ie for the database).
 
 ## The host database.
-DB_HOST               := localhost
+DB_HOST               := 127.0.0.1
 
 ## The port of the database server
-DB_PORT               := 3000
+DB_PORT               := 5432
 
-## The database name for the project. By default, it's the project name.
+## The database name for the project. By default, it's better if it is
+## the project name (zero.sql already there).
 DB_NAME               := zero
 
 ## The database user. By default, it will use the username of the current user.
-DB_USER               := $(USER)
+DB_USER               := postgres
 
 ## The password to access the database. By default it's empty.
-DB_PASSWORD           := ""
+DB_PASSWORD           := kpass
 
 ## The main SQL file. This file will be used by the rule 'db-schema' (defined
 ## in Makefile.db) to initialise the database schema.
