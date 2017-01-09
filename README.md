@@ -55,12 +55,14 @@ it actually broke Ubuntu's `npm`:
 /usr/bin/env: ‘node’: No such file or directory
 ```
 
+Tried:
+
 ```
 apt remove npm
 apt autoremove # kick also all the dependencies out
 ```
 
-didn't do it
+didn't do it.
 
 tried also
 [this](http://stackoverflow.com/questions/26320901/cannot-install-nodejs-usr-bin-env-node-no-such-file-or-directory#26320915)
@@ -69,7 +71,7 @@ tried also
 ln -s /usr/bin/nodejs /usr/bin/node
 ```
 
-`npm` on Ubuntu: disaster
+Conclusion `npm` on Ubuntu: disaster
 
 ```
 docker pull node
@@ -79,7 +81,7 @@ npm install -g cordova
 
 It's better
 cf. <https://hub.docker.com/r/library/node/>
-but an old version of Debian
+but it's an old version of Debian
 ⇒
 JRE version
 [mismatch](http://stackoverflow.com/questions/10382929/how-to-fix-java-lang-unsupportedclassversionerror-unsupported-major-minor-versi).
@@ -120,3 +122,10 @@ apt-get install -y qemu-kvm
 sdkmanager 'system-images;android-23;default;x86_64'
 ```
 
+### Docker
+
+Melt laptop CPU:
+
+```
+docker build -t moelap:test .
+```
