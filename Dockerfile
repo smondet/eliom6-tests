@@ -38,12 +38,13 @@ RUN unzip tools_r25.2.3-linux.zip
 ENV PATH "${PWD}/tools/bin:${PWD}/platform-tools:${PATH}"
 
 # sdkmanager chokes on certificates that contain non-ascii charcters in their filenames:
+# even with `--no_https`
 RUN rm /etc/ssl/certs/*.pem
 RUN rm /usr/share/ca-certificates/mozilla/*
-RUN "sdkmanager" "platform-tools"
-RUN "sdkmanager" "tools"
-RUN "sdkmanager" 'build-tools;25.0.2'
-RUN "sdkmanager" 'platforms;android-23'
+RUN "sdkmanager" --no_https "platform-tools"
+RUN "sdkmanager" --no_https "tools"
+RUN "sdkmanager" --no_https 'build-tools;25.0.2'
+RUN "sdkmanager" --no_https 'platforms;android-23'
 
 # Emulator-ready:
 RUN apt-get install -y qemu-kvm
