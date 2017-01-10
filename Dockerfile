@@ -33,14 +33,20 @@ RUN opam config exec -- opam-depext conf-gmp.1
 ENV OPAMJOBS 1
 RUN opam config exec -- opam install --yes ocsigen-start
 
+# The Android SDK at `/` just hangs (or loops forever) without error message
+WORKDIR /android-sdk
 RUN curl -LO https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
 RUN unzip tools_r25.2.3-linux.zip
-ENV PATH "${PWD}/tools/bin:${PWD}/platform-tools:${PATH}"
+ENV PATH "/android-sdk/tools/bin:/android-sdk/platform-tools:${PATH}"
+
+# We “accept” the license:
+RUN mkdir -p licenses/
+RUN echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > licenses/android-sdk-license
 
 # sdkmanager chokes on certificates that contain non-ascii charcters in their filenames:
 # even with `--no_https`
-RUN rm /etc/ssl/certs/*.pem
-RUN rm /usr/share/ca-certificates/mozilla/*
+RUN rm /etc/ssl/certs/[^W]*.pem
+RUN rm /usr/share/ca-certificates/mozilla/[^W]*.crt
 RUN "sdkmanager" --no_https "platform-tools"
 RUN "sdkmanager" --no_https "tools"
 RUN "sdkmanager" --no_https 'build-tools;25.0.2'
